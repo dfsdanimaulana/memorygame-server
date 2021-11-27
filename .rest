@@ -1,0 +1,22 @@
+GET http://localhost:3003
+
+###
+GET http://localhost:3003/user
+
+###
+POST http://localhost:3003/user
+Content-Type: application/json
+
+{
+    "username":"dani",
+    "password":"123"
+}
+
+###
+POST http://localhost:3003/user/signin
+Content-Type: application/json
+
+{
+    "username":"dani",
+    "password":"12345"
+}

@@ -5,6 +5,9 @@ const createError = require('http-errors')
 const cors = require('cors')
 require('dotenv').config()
 
+// Router
+const userRouter = require('./src/routes/user.routes')
+
 const app = express()
 
 // cors security
@@ -21,7 +24,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 // Routes
-app.use('/user', require('./src/routes/user.routes'))
+app.use('/user', userRouter)
 
 app.use('/', (req, res) => {
     res.json({

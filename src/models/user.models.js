@@ -12,8 +12,13 @@ const userSchema = new Schema(
             minlength: [4, 'username must be more than 4 character'],
             maxlength: [15, 'username must be less than 15 character'],
             lowercase: true,
-        }
+        },
+        password: {
+            type: String,
+            required: [true, 'password is required'],
+        },
     },
+
     {
         timestamps: true,
     }
