@@ -1,0 +1,26 @@
+{
+    "name": "twice-server",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "start": "node ./bin/server.js",
+        "dev": "set DEBUG=dev & nodemon ./bin/server.js",
+        "predev2": "set DEBUG=dev",
+        "dev2": "DEBUG=dev nodemon ./bin/server.js",
+        "commit": "node ./src/utils/commit.js"
+    },
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "chalk": "^4.1.2",
+        "cors": "^2.8.5",
+        "debug": "^2.6.9",
+        "dotenv": "^10.0.0",
+        "express": "^4.16.1",
+        "http-errors": "^1.6.3",
+        "mongoose": "^6.0.6"
+    },
+    "devDependencies": {
+        "eslint": "^7.32.0",
+        "nodemon": "^2.0.12"
+    }
+}
