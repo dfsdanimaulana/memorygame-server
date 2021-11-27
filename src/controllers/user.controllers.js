@@ -4,8 +4,17 @@ const User = require('../models/user.models')
 const debug = require('debug')('dev')
 const bcrypt = require('bcryptjs')
 
-exports.getUser = (req, res) => {
-    res.json({ message: 'Hello from user!' })
+exports.getUser = async (req, res) => {
+    try {
+        const user = await User.find({})
+        if (!user) {
+            debug('user not found')
+        }
+        res.json(user)
+    } catch (error) {
+        debug(error)
+        res.status(400).json({ message: error.message })
+    }
 }
 
 exports.addUser = async (req, res) => {
@@ -34,7 +43,7 @@ exports.addUser = async (req, res) => {
         }
         res.json(saveUser)
     } catch (error) {
-        debug(error.message)
+        debug(error)
         res.status(400).send(error.message)
     }
 }
@@ -57,7 +66,7 @@ exports.checkUser = async (req, res) => {
 
         res.json({ message: `you are logged in as ${username}` })
     } catch (error) {
-        debug(error.message)
+        debug(error)
         res.status(400).send(error.message)
     }
 }

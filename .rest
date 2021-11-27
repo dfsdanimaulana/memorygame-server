@@ -1,22 +1,25 @@
 GET http://localhost:3003
 
 ###
+// get all user from db
 GET http://localhost:3003/user
 
 ###
+// add new user
 POST http://localhost:3003/user
 Content-Type: application/json
 
 {
-    "username":"dani",
-    "password":"123"
+    "username":"dewi@",
+    "password":"1234"
 }
 
 ###
+// user signin
 POST http://localhost:3003/user/signin
 Content-Type: application/json
 
 {
-    "username":"dani",
-    "password":"12345"
+    "username":"dewi",
+    "password":"1234"
 }
