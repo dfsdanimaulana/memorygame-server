@@ -1,9 +1,10 @@
 'use strict'
 
-const User = require('../models/user.models')
 const debug = require('debug')('dev')
 const bcrypt = require('bcryptjs')
+const User = require('../models/user.models')
 
+// get all user data from db
 exports.getUser = async (req, res) => {
     try {
         const user = await User.find({})
@@ -17,6 +18,7 @@ exports.getUser = async (req, res) => {
     }
 }
 
+// add new user to db
 exports.addUser = async (req, res) => {
     const { username, password } = req.body
 
@@ -48,11 +50,12 @@ exports.addUser = async (req, res) => {
     }
 }
 
+// check user and compare password
 exports.checkUser = async (req, res) => {
     const { username, password } = req.body
     try {
         // get user from db
-        const user = await User.findOne({ username }, 'username password')
+        const user = await User.findOne({ username }, 'username password point avatar')
         if (!user) {
             return res.status(400).json({ message: 'user not found' })
         }
@@ -63,10 +66,26 @@ exports.checkUser = async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ message: 'invalid password' })
         }
-
-        res.json({ message: `you are logged in as ${username}` })
+        
+        // return user data
+        res.json(user)
     } catch (error) {
         debug(error)
         res.status(400).send(error.message)
     }
+}
+
+// update user point
+exports.updatePoint = async (req, res) => {
+    const { username, newPoint } = req.body
+    try {
+        // Update user point
+        const user = await User.findOne({ username },{$set:{
+            point: newPoint
+        }})
+        res.json(user)
+        } catch (error) {
+            debug(error)
+            res.status(400).send(error.message)
+        }
 }
