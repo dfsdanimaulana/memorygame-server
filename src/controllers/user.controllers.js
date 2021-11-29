@@ -55,7 +55,10 @@ exports.checkUser = async (req, res) => {
     const { username, password } = req.body
     try {
         // get user from db
-        const user = await User.findOne({ username }, 'username password point avatar')
+        const user = await User.findOne(
+            { username },
+            'username password point avatar'
+        )
         if (!user) {
             return res.status(400).json({ message: 'user not found' })
         }
@@ -66,7 +69,7 @@ exports.checkUser = async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ message: 'invalid password' })
         }
-        
+
         // return user data
         res.json(user)
     } catch (error) {
@@ -80,12 +83,17 @@ exports.updatePoint = async (req, res) => {
     const { username, newPoint } = req.body
     try {
         // Update user point
-        const user = await User.findOne({ username },{$set:{
-            point: newPoint
-        }})
+        const user = await User.findOneAndUpdate(
+            { username },
+            {
+                $set: {
+                    point: newPoint,
+                },
+            }
+        )
         res.json(user)
-        } catch (error) {
-            debug(error)
-            res.status(400).send(error.message)
-        }
+    } catch (error) {
+        debug(error)
+        res.status(400).send(error.message)
+    }
 }

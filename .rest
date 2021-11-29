@@ -23,3 +23,13 @@ Content-Type: application/json
     "username":"dewi",
     "password":"1234"
 }
+
+###
+// update point
+POST http://localhost:3003/user/point
+Content-Type: application/json
+
+{
+    "username":"dewi",
+    "newPoint":"90"
+}
