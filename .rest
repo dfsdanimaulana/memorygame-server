@@ -30,6 +30,6 @@ POST http://localhost:3003/user/point
 Content-Type: application/json
 
 {
-    "username":"dewi",
-    "newPoint":"90"
+    "username":"dani",
+    "newPoint":"3"
 }

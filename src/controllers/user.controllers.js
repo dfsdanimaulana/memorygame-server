@@ -80,18 +80,24 @@ exports.checkUser = async (req, res) => {
 
 // update user point
 exports.updatePoint = async (req, res) => {
-    const { username, newPoint } = req.body
+    let { username, newPoint } = req.body
     try {
+        if (!username || !newPoint) {
+            return res
+                .status(400)
+                .json({ message: 'username and newPoint are required!' })
+        }
+        // get data user
+        const user = await User.findOne({ username })
+        if (!user) {
+            return res.status(404).json({ message: 'user not found' })
+        }
         // Update user point
-        const user = await User.findOneAndUpdate(
-            { username },
-            {
-                $set: {
-                    point: newPoint,
-                },
-            }
-        )
-        res.json(user)
+        newPoint = parseInt(newPoint)
+        user.point += newPoint
+        // save updated data
+        const data = await user.save()
+        res.json(data)
     } catch (error) {
         debug(error)
         res.status(400).send(error.message)
