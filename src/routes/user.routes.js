@@ -10,7 +10,7 @@ const {
 } = require('../controllers/user.controllers')
 
 router.get('/', getUser)
-router.post('/signin', checkUser)
+router.post('/login', checkUser)
 router.post('/point', updatePoint)
 router.post('/', addUser)
 
