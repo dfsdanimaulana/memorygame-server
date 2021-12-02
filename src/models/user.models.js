@@ -11,7 +11,7 @@ const userSchema = new Schema(
             required: [true, 'username required'],
             unique: [true, 'username is already exists'],
             minlength: [4, 'username must be more than 4 character'],
-            maxlength: [15, 'username must be less than 15 character'],
+            maxlength: [10, 'username must be less than 10 character'],
             lowercase: true,
             validate: [
                 isAlphanumeric,

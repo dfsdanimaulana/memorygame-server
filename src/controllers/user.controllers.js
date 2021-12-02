@@ -23,6 +23,12 @@ exports.addUser = async (req, res) => {
     const { username, password } = req.body
 
     try {
+        const checkUser = await User.findOne({ username })
+        if(checkUser){
+            return res
+                .status(400)
+                .json({ message: 'username already exist' })
+        }
         // validate password
         if (!password || password.length < 4) {
             return res
@@ -46,7 +52,7 @@ exports.addUser = async (req, res) => {
         res.json(saveUser)
     } catch (error) {
         debug(error)
-        res.status(400).send(error.message)
+        res.status(400).json(error)
     }
 }
 
@@ -74,7 +80,7 @@ exports.checkUser = async (req, res) => {
         res.json(user)
     } catch (error) {
         debug(error)
-        res.status(400).send(error.message)
+        res.status(400).json(error)
     }
 }
 
@@ -100,6 +106,6 @@ exports.updatePoint = async (req, res) => {
         res.json(data)
     } catch (error) {
         debug(error)
-        res.status(400).send(error.message)
+        res.status(400).json(error)
     }
 }
