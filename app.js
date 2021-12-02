@@ -13,7 +13,7 @@ const app = express()
 // cors security
 app.use(
     cors({
-        origin: ['http://localhost:3000'],
+        origin: ['https://twice-memory.herokuapp.com'],
         methods: ['GET', 'POST'],
         credentials: true,
     })
