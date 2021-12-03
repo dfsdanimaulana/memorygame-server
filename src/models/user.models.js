@@ -26,6 +26,14 @@ const userSchema = new Schema(
             type: Number,
             default: 0,
         },
+        time: {
+            type: Number,
+            default: 0,
+        },
+        turn: {
+            type: Number,
+            default: 0,
+        },
         avatar: {
             type: String,
             default: 'twice.jpg',

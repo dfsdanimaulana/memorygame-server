@@ -24,10 +24,8 @@ exports.addUser = async (req, res) => {
 
     try {
         const checkUser = await User.findOne({ username })
-        if(checkUser){
-            return res
-                .status(400)
-                .json({ message: 'username already exist' })
+        if (checkUser) {
+            return res.status(400).json({ message: 'username already exist' })
         }
         // validate password
         if (!password || password.length < 4) {
@@ -52,7 +50,7 @@ exports.addUser = async (req, res) => {
         res.json(saveUser)
     } catch (error) {
         debug(error)
-        res.status(400).json(error)
+        res.status(400).json({ message: error.message })
     }
 }
 
@@ -80,13 +78,13 @@ exports.checkUser = async (req, res) => {
         res.json(user)
     } catch (error) {
         debug(error)
-        res.status(400).json(error)
+        res.status(400).json({ message: error.message })
     }
 }
 
 // update user point
 exports.updatePoint = async (req, res) => {
-    let { username, newPoint } = req.body
+    let { username, newPoint, time, turn } = req.body
     try {
         if (!username || !newPoint) {
             return res
@@ -98,14 +96,51 @@ exports.updatePoint = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'user not found' })
         }
+        // update user time
+        if (user.time === 0 || user.time > time) {
+            user.time = parseInt(time)
+        }
+        // update user turn
+        if (user.turn === 0 || user.turn > turn) {
+            user.turn = parseInt(turn)
+        }
         // Update user point
-        newPoint = parseInt(newPoint)
-        user.point += newPoint
+        user.point += parseInt(newPoint)
         // save updated data
         const data = await user.save()
         res.json(data)
     } catch (error) {
         debug(error)
-        res.status(400).json(error)
+        res.status(400).json({ message: error.message })
+    }
+}
+
+// get and sort 10 user by highest point
+exports.getUserByPoint = async (req, res) => {
+    try {
+        const user = await User.find().sort({ point: -1 }).limit(10)
+        res.json(user)
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+}
+
+// get and sort 10 user by lowest time
+exports.getUserByTime = async (req, res) => {
+    try {
+        const user = await User.find().sort({ time: 1 }).limit(10)
+        res.json(user)
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+}
+
+// get and sort 10 user by lowest turn
+exports.getUserByTurn = async (req, res) => {
+    try {
+        const user = await User.find().sort({ turn: 1 }).limit(10)
+        res.json(user)
+    } catch (error) {
+        res.status(400).json({ message: error.message })
     }
 }

@@ -31,5 +31,19 @@ Content-Type: application/json
 
 {
     "username":"dani",
-    "newPoint":"3"
+    "newPoint":"3",
+    "time":9,
+    "turn":9
 }
+
+###
+// get user top point limit to 10 user
+GET http://localhost:3003/user/point
+
+###
+// get user top time limit to 10 user
+GET http://localhost:3003/user/time
+
+###
+// get user top turn limit to 10 user
+GET http://localhost:3003/user/turn
