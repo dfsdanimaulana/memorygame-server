@@ -28,11 +28,11 @@ const userSchema = new Schema(
         },
         time: {
             type: Number,
-            default: 0,
+            default: 60,
         },
         turn: {
             type: Number,
-            default: 0,
+            default: 100,
         },
         avatar: {
             type: String,

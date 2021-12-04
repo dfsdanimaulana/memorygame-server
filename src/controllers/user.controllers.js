@@ -128,7 +128,9 @@ exports.getUserByPoint = async (req, res) => {
 // get and sort 10 user by lowest time
 exports.getUserByTime = async (req, res) => {
     try {
-        const user = await User.find().sort({ time: 1 }).limit(10)
+        const user = await User.find({ time: { $lt: 100 } })
+            .sort({ time: 1 })
+            .limit(10)
         res.json(user)
     } catch (error) {
         res.status(400).json({ message: error.message })
@@ -138,7 +140,9 @@ exports.getUserByTime = async (req, res) => {
 // get and sort 10 user by lowest turn
 exports.getUserByTurn = async (req, res) => {
     try {
-        const user = await User.find().sort({ turn: 1 }).limit(10)
+        const user = await User.find({ turn: { $lt: 60 } })
+            .sort({ turn: 1 })
+            .limit(10)
         res.json(user)
     } catch (error) {
         res.status(400).json({ message: error.message })

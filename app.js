@@ -13,8 +13,8 @@ const app = express()
 // cors security
 app.use(
     cors({
-        // origin: ['https://twice-memory.herokuapp.com'],
-        origin: ['http://localhost:3000'],
+        origin: ['https://twice-memory.herokuapp.com'],
+        // origin: ['http://localhost:3000'],
         methods: ['GET', 'POST'],
         credentials: true,
     })
@@ -47,7 +47,7 @@ app.use(function (err, req, res) {
     // render the error page
     res.status(err.status || 500)
     res.json({
-        message: 'page not found'
+        message: 'page not found',
     })
 })
 
