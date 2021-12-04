@@ -7,6 +7,7 @@ require('dotenv').config()
 
 // Router
 const userRouter = require('./src/routes/user.routes')
+const commentRouter = require('./src/routes/comment.routes')
 
 const app = express()
 
@@ -26,6 +27,7 @@ app.use(express.urlencoded({ extended: false }))
 
 // Routes
 app.use('/user', userRouter)
+app.use('/comment', commentRouter)
 
 app.use('/', (req, res) => {
     res.json({
